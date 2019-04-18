@@ -4,7 +4,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class MainTest {
+public class LuhnTest {
 
     private LuhnValidator luhnValidator;
 

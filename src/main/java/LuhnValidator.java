@@ -1,6 +1,11 @@
 import java.math.BigInteger;
 
 /**
+ * Class that validates a given string whether it stands the Luhn Algorithm check or not
+ * https://en.wikipedia.org/wiki/Luhn_algorithm
+ *
+ * ------------------------------------------------------------
+ * #TODO
  * There are several options to handle the Validation.
  *
  * Filter Pattern, Strategy Pattern, Interceptor Pattern
@@ -51,8 +56,8 @@ public class LuhnValidator {
      * This is room for improvement:
      * - Check BigInteger's value digits > 0
      * - Check BigInteger's value length > 7 digits
-     * @param digits
-     * @return
+     * @param digits Digits as String
+     * @return Boolean
      */
     private boolean checkForEdgeCases(String digits) {
         return true;
@@ -64,8 +69,8 @@ public class LuhnValidator {
      * - at the end (trim end)
      * - 1 or more adjacent/consecutive whitespaces
      * - no whitespace at all
-     * @param digits String
-     * @return String
+     * @param digits Digits as String
+     * @return String Digits without possible whitespace(s)
      */
     private String removeWhitespace(String digits) {
         return digits.replaceAll("\\s+","");
@@ -74,12 +79,12 @@ public class LuhnValidator {
     /**
      * Checks whether a String only contains digits
      * Range: Long.MAX
-     * @param text
-     * @return
+     * @param digits Digits as String
+     * @return BigInteger
      */
-    BigInteger convertToBigInteger(String text) {
+    BigInteger convertToBigInteger(String digits) {
         try {
-            return new BigInteger(text);
+            return new BigInteger(digits);
         } catch (NumberFormatException exception) {
             throw exception;
         }
@@ -87,12 +92,12 @@ public class LuhnValidator {
 
     /**
      * Checks strings if it contains only digits
-     * @param text
-     * @return
-     * @throws Exception
+     * @param digits
+     * @return Boolean true if there were only digits in the number string
+     * @throws Exception In case there were characters in the number string
      */
-    boolean containsOnlyDigits(String text) throws Exception {
-        if (text.matches("[0-9]+")) {
+    boolean containsOnlyDigits(String digits) throws Exception {
+        if (digits.matches("[0-9]+")) {
             return true;
         } else {
             throw new Exception("Contains characters!");

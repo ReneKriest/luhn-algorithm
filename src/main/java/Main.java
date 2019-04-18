@@ -1,46 +1,42 @@
-import org.apache.commons.validator.routines.checkdigit.LuhnCheckDigit;
 import java.util.Scanner;
 
+/**
+ * Where the Luhn Magic happens via command line
+ */
 public class Main {
     public static void main(String[] args) {
-        /*
-        System.out.println("Enter a number: ");
-        String lineFromConsole = getLineFromConsole();
-        System.out.println(lineFromConsole);
-*/
+        String defaultText = "Input " + "'" + "%s" + "'";
+
         LuhnValidator luhn = new LuhnValidator();
 
-        System.out.println("The Luhner: ");
-        try {
-            System.out.println(luhn.isLuhnNumber("528575948423232323998333139")); // true
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        System.out.println("The magical Luhn Validator!");
+        System.out.print("Enter a Number or EXIT to leave: ");
 
-        try {
-            System.out.println(luhn.isLuhnNumber("5285759484333139")); // true
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            System.out.println(luhn.isLuhnNumber("efjhsdf")); // true
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String digits = "";
 
-        LuhnCheckDigit checker = new LuhnCheckDigit();
-        boolean valid = checker.isValid("5285759484333139");
-        System.out.println("Hello Apache");
-        valid = checker.isValid("5285759484333139");
-        System.out.println(valid);
-        // checkDigit("49927398716");
+        while (true) {
+            digits = getInputFromConsole();
+
+            if (digits.equals("EXIT")) {
+                return;
+            }
+
+            try {
+                if (luhn.isLuhnNumber(digits)) {
+                    System.out.println(String.format(defaultText, digits) + " is a valid Luhn number. :)");
+                } else {
+                    System.out.println(String.format(defaultText, digits) + " is NOT a valid Luhn number.");
+                    System.out.print("Try again: ");
+                }
+            } catch (Exception e) {
+                System.out.println(String.format(defaultText, digits) + " is not a valid Number. It contains Chars.");
+                System.out.print("Pls enter only digits: ");
+            }
+        }
     }
 
-    public static String getLineFromConsole() {
-        Scanner in = new Scanner(System.in);
-        String input = in.nextLine();
-
-        return input;
+    private static String getInputFromConsole() {
+        return new Scanner(System.in).nextLine();
     }
 
 }
